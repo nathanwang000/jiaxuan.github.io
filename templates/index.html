@@ -2,52 +2,49 @@
 {% block page_content %}
 {% block head %}
 {{super()}}
+
 <!-- <link rel="stylesheet" type="text/css" href="../static/style.css" /> -->
 <!-- <link rel="stylesheet" type="text/css" href="../static/color.css" /> -->
 {% endblock %}
 <div class="wrapper">
   <header>
     <div>
-      <!-- <img src="../static/logo.png" id="logo" alt="logo"></img> -->
-      <h1>Jiaxuan Wang's site</h1>
+      <h1>Jiaxuan Wang</h1>
     </div>
-    <nav>
-      <div id="divalien">
-	<img src="../static/alieninvasion.png">
-	<p id="description">description for alieninvasion</p>
-      </div>
-      <div id="divsnake">
-	<img src="../static/snake.png">
-	<p id="description">description for snake</p>
-      </div>
-      <div id="div2048">
-	<img src="../static/2048.png">
-	<p id="description">description for 2048</p>
-      </div>
-      <!-- changeThis to use javascript -->
-      <div id="divalien2">
-	<img src="../static/alieninvasion.png">
-	<p id="description">description for alieninvasion</p>
-      </div>
-    </nav>
+    <!-- <nav> -->
+    <!--   <div id="divalien"> -->
+    <!-- 	<img src="../static/alieninvasion.png"> -->
+    <!-- 	<p id="description">description for alieninvasion</p> -->
+    <!--   </div> -->
+    <!--   <div id="divsnake"> -->
+    <!-- 	<img src="../static/snake.png"> -->
+    <!-- 	<p id="description">description for snake</p> -->
+    <!--   </div> -->
+    <!--   <div id="div2048"> -->
+    <!-- 	<img src="../static/2048.png"> -->
+    <!-- 	<p id="description">description for 2048</p> -->
+    <!--   </div> -->
+    <!--   <\!-- changeThis to use javascript -\-> -->
+    <!--   <div id="divalien2"> -->
+    <!-- 	<img src="../static/alieninvasion.png"> -->
+    <!-- 	<p id="description">description for alieninvasion</p> -->
+    <!--   </div> -->
+    <!-- </nav> -->
   </header>
   <div id="content">
-    <aside>
-      <img id="photo" src="../static/jiaxuan.jpg"></img>
-    </aside>
-
-    <article>About me</article>
+    <img id="photo" src="/static/jiaxuan.jpg"></img>
   </div>
-
+  
   <footer>
     <p>&copy Jiaxuan Wang</p>
-    <span id="hobby">
-      <img id="violin"></img>
-      <img id="basketball"></img>
-      <img id="book"></img>
-    </span>
+    <!-- <span id="hobby"> -->
+    <!--   <img id="violin"></img> -->
+    <!--   <img id="basketball"></img> -->
+    <!--   <img id="book"></img> -->
+    <!-- </span> -->
   </footer>
-
-  <script type="text/javascript" src="../static/mainpage.js"></script>
+  
+  <script type="text/javascript" src="/static/2048_static/jquery.js"></script>
+  <script type="text/javascript" src="/static/mainpage.js"></script>
 </div> <!-- wrapper end -->
 {% endblock %}
