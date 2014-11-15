@@ -1,34 +1,33 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>2048</title>
-    <meta charset="utf-8" />
-    <meta name="viewport"
-	  content="width=device-width,
-		   height=device-height,
-		   initial-scale=1.0,
-		   minimum-scale=1.0,
-		   maximum-scale=1.0,
-		   user-scalable=no"
-	  />
-    <link rel="stylesheet" type="text/css" href="/static/2048_static/2048.css" />
-    
-    <script type="text/javascript" src="/static/2048_static/jquery.js"></script>
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+<title>2048</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+      content="width=device-width,
+	       height=device-height,
+	       initial-scale=1.0,
+	       minimum-scale=1.0,
+	       maximum-scale=1.0,
+	       user-scalable=no"
+      />
+<link rel="stylesheet" type="text/css" href="/static/2048_static/2048.css" />
 
-  </head>
-  <body>
-    <header>
-      <h1>2048</h1>
-      <a href="javascript:newgame();" id="newgamebutton">New Game</a>
-      <p>score: <span id="score">0</span></p>
-    </header>
-    
-    <div id="grid-container">
-    </div>
+<script type="text/javascript" src="/static/2048_static/jquery.js"></script>
+{% endblock %}
+{% block page_content %}
+<header>
+  <h1>2048</h1>
+  <a href="javascript:newgame();" id="newgamebutton">New Game</a>
+  <p>score: <span id="score">0</span></p>
+</header>
 
-    <script type="text/javascript" src="/static/2048_static/colorArray.js"></script>
-    <script type="text/javascript" src="/static/2048_static/support2048.js"></script>
-    <script type="text/javascript" src="/static/2048_static/showanimation.js"></script>
-    <script type="text/javascript" src="/static/2048_static/main2048.js"></script>
-  </body>
-</html>
+<div id="grid-container">
+</div>
+
+<script type="text/javascript" src="/static/2048_static/colorArray.js"></script>
+<script type="text/javascript" src="/static/2048_static/support2048.js"></script>
+<script type="text/javascript" src="/static/2048_static/showanimation.js"></script>
+<script type="text/javascript" src="/static/2048_static/main2048.js"></script>
+{% endblock %}
+

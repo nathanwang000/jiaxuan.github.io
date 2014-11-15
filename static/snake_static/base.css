@@ -48,7 +48,7 @@ table {
 }
 /* after reset */
 /* Center the container*/
-#container {
+#snake_container {
     padding-top:50px;
     margin:0 auto;
     width:640px;

@@ -15,7 +15,7 @@ function prepareForMobile() {
     if (documentWidth > 500) {
 	gridContainerWidth = 500;
 	cellSpace = 20;
-	cellSideLength = 100;
+	cellSideLength = 90;
     } else if (documentHeight < documentWidth) {
 	gridContainerWidth = 0.92 * documentHeight;
 	cellSideLength = 0.18 * documentHeight;
