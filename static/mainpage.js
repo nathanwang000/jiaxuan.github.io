@@ -17,6 +17,7 @@ var moveLeft = new function() {
 
 window.addEventListener("load", function() {
     timer = setInterval('moveLeft.moveLeft()', time);
+    $("#author_photo").css("width", $("#photo_div").width())
 })
 
 $("nav").on("mouseover", function() {
