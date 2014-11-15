@@ -31,6 +31,8 @@ function prepareForMobile() {
 }
 
 function newgame() {
+    score = 0;
+    animatescore(score);
     // initialize
     init();
     // randomly distribute 2 boxes
