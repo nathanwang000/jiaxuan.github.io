@@ -41,23 +41,21 @@
       I enjoy programming very much and tried to build some small games in my spare time.
       Feel free to check out some of the games by clicking on the links located on the 
       navigation bar.<br/>
-      <br/>
-      I'm familiar with C, C++, Python, R, Javascript, Ruby, Bash script, Scheme, and Emacs-lisp. 
-      Learning a new language is like collecting a gem. 
-      Every language is valuable as they attack different tasks 
-      at different angles (although they are all turing complete,
-      a suitable language can improve significantly the efficiency of programmers). 
-      By far my favorite language is python as 
-      it is concise, extremely readable, explicit in its intention 
-      instead of relying too much on convention. Although it may not 
-      be the fastest choice for applications, it has a simple
-      interface with C that makes writing fast code possible.
-      I also like the fact that python is a multi-paradigm 
-      programming language. Functional programming and
-      object oriented programming are both feasible, which is really 
-      handy. Moreover, I think dynamically typed language is always 
-      nicer to work with.
-      <br/>
+
+      <h3>Skill Set:</h3>
+
+      {% set skills={"C":"80", "C++":"85", "Python":"90", "R":"80", "Javascript":"70", "Ruby":"50", 
+      "Bash script":"75", "scheme":"40", "Java":"50"} %}
+      {% for skill, value in skills.iteritems() %}
+      <div class="progress">
+	<div class="progress-bar progress-bar-striped" role="progressbar" 
+	     aria-valuenow="{{value}}" aria-valuemin="0" aria-valuemax="100" 
+	     style="width: {{value}}%;">
+	  <span>{{skill}}</span>
+	</div>
+      </div>
+      {% endfor %}
+
       <br/>
       I'm contributing a research on <i>Computer Vision</i>.
       You may want to checkout this link to read about it.</br>
