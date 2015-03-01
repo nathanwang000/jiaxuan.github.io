@@ -1,10 +1,10 @@
 #!venv/bin/python
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.script import Manager
 from flask.ext.moment import Moment
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path='/static')
 Bootstrap(app)
 Moment(app)
 manager = Manager(app)
@@ -40,6 +40,10 @@ def blog_post():
 @app.route('/blog/contact')
 def blog_contract():
     return render_template('blog_templates/contact.html')
+
+@app.route('/blog/mail/contact_me.php', methods = ['POST'])
+def run_php():
+    return send_from_directory(app.static_folder, 'blog_static/mail/contact_me.php')
 
 if __name__ == '__main__':
     manager.run()
