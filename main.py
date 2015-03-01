@@ -25,5 +25,21 @@ def game_shooter():
 def game_snake():
     return render_template("snake_templates/index.html")
 
+@app.route('/blog')
+def blog():
+    return render_template('blog_templates/index.html')
+
+@app.route('/blog/about')
+def blog_about():
+    return render_template('blog_templates/about.html')
+
+@app.route('/blog/post')
+def blog_post():
+    return render_template('blog_templates/post.html')
+
+@app.route('/blog/contact')
+def blog_contract():
+    return render_template('blog_templates/contact.html')
+
 if __name__ == '__main__':
     manager.run()
