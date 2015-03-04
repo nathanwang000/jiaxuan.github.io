@@ -45,5 +45,9 @@ def blog_contract():
 def run_php():
     return send_from_directory(app.static_folder, 'blog_static/mail/contact_me.php')
 
+@app.route('/googlee07c61c8e4157065.html')
+def google_crawl():
+    return render_template('googlee07c61c8e4157065.html')
+
 if __name__ == '__main__':
     manager.run()
