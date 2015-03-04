@@ -1,0 +1,393 @@
+{% extends 'blog_templates/base.html' %}
+{% block title %}Principal Component Analysis {% endblock %}
+{% block page_content %}
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="Principal Component Analysis"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2015-03-04T11:10-0500"/>
+<meta name="author" content="Jiaxuan"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js">
+/**
+ *
+ * @source: http://orgmode.org/mathjax/MathJax.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in http://orgmode.org/mathjax/MathJax.js.
+ *
+ * Copyright (C) 2012-2013  MathJax
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in http://orgmode.org/mathjax/MathJax.js.
+ *
+ */
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code below.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code below is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code below.
+*/
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Principal Component Analysis</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Projection matrix</a></li>
+<li><a href="#sec-2">2 PCA</a>
+<ul>
+<li><a href="#sec-2-1">2.1 Maximizing variance along principal component direction</a></li>
+<li><a href="#sec-2-2">2.2 Minimizing reconstruction error (TOBE written)</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 Eigen Vector Decomposition</a></li>
+<li><a href="#sec-4">4 SVD</a>
+<ul>
+<li><a href="#sec-4-1">4.1 proof of SVD's properties (TOBE written)</a></li>
+<li><a href="#sec-4-2">4.2 relation with PCA</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 LSA</a>
+<ul>
+<li><a href="#sec-5-1">5.1 turn a sparse matrix into dense matrix</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Projection matrix</h2>
+<div class="outline-text-2" id="text-1">
+
+<p>  \begin{equation}
+  \theta = (A^tA)A^tX
+  \end{equation}
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> PCA</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>  PCA stands for principal component analysis. It is a major tool for dimensionality reduction in
+  machine learning and statistics. The core idea, like most other dimensionality reduction techniques,
+  is to restrict the column rank of a matrix so that unimportant details are thrown away. Here I derive
+  PCA from 2 perspectives, hopefully the Eureka moment will come to you after reading this post.
+</p>
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Maximizing variance along principal component direction</h3>
+<div class="outline-text-3" id="text-2-1">
+
+<p>   The objective function to maximize is
+   \begin{equation}
+   \mathbb{E}(( x \cdot u - \mathbb{E}(x \cdot u))^2)
+   \end{equation}
+   where \(u\) is a principal component (assuming orthonormal) and \(x\) is a data point
+</p>
+<p>   
+   The above formulae can be reduced to the following form
+   \begin{equation}
+   u^t \mathbb{E}( (x-\mathbb{E}) (x-\mathbb{E})^t ) u
+   \end{equation}
+</p>
+<p>   
+   where \(\mathbb{E}( (x-\mathbb{E}) (x-\mathbb{E})^t )\) is the second moment matrix (also sample
+   variance matrix)
+</p>
+<p>   
+   TOBE finished:
+   \begin{equation}
+   \mathbb{E}( (x-\mathbb{E}) (x-\mathbb{E})^t ) = X X^t
+   \end{equation}
+</p></div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Minimizing reconstruction error (TOBE written)</h3>
+<div class="outline-text-3" id="text-2-2">
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Eigen Vector Decomposition</h2>
+<div class="outline-text-2" id="text-3">
+
+<p>  TOBE wirtten
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> SVD</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>  SVD stands for singular value decomposition. It is a powerful technique that links the nullspace, 
+  the column space, the row space, and the kernel of \(A^t\) together (\(A\) being an arbitrary matrix).
+  \begin{equation}
+  A = U \Sigma V^t
+  \end{equation}
+  where A is a matrix we want to decompose, U a matrix with columns eigenvectors of \(A A^t\), and V a
+  matrix with columns eigenvectors of \(A^t A\).
+</p>
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> proof of SVD's properties (TOBE written)</h3>
+<div class="outline-text-3" id="text-4-1">
+
+<ul>
+<li>U is a matrix with columns eigenvectors of \(A A^t\)
+</li>
+</ul>
+
+<p>   \begin{equation}
+   A A^t = (U \Sigma V^t) (U \Sigma V^t)^t = U \Sigma^2 U^t
+   \end{equation}
+   From the above equation, it should be clear that U is the matrix having the eigenvectors of AA' as columns
+</p>
+<ul>
+<li>V is a matrix with columns eigenvectors of \(A^t A\)
+</li>
+</ul>
+
+<p>   \begin{equation}
+   A^t A = (U \Sigma V^t)^t (U \Sigma V^t) = V \Sigma^2 V^t
+   \end{equation}
+   From the above equation, it should be clear that V is the matrix having the eigenvectors of A'A as columns
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> relation with PCA</h3>
+<div class="outline-text-3" id="text-4-2">
+
+<p>U = eigenvector of \(A A^t\)
+V = eigenvector of \(A^t A\)
+</p>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> LSA</h2>
+<div class="outline-text-2" id="text-5">
+
+<p>  latent syntax analysis
+  TOBE written
+</p>
+</div>
+
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> turn a sparse matrix into dense matrix</h3>
+<div class="outline-text-3" id="text-5-1">
+
+<p>   TOBE written
+</p></div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2015-03-04T11:10-0500</p>
+<p class="author">Author: Jiaxuan</p>
+
+</div>
+</body>
+</html>
+
+{% endblock %}

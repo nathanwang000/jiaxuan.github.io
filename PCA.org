@@ -1,0 +1,75 @@
+Principal Component Analysis
+
+* Projection matrix
+  \begin{equation}
+  \theta = (A^tA)A^tX
+  \end{equation}
+  
+* PCA
+  PCA stands for principal component analysis. It is a major tool for dimensionality reduction in
+  machine learning and statistics. The core idea, like most other dimensionality reduction techniques,
+  is to restrict the column rank of a matrix so that unimportant details are thrown away. Here I derive
+  PCA from 2 perspectives, hopefully the Eureka moment will come to you after reading this post.
+** Maximizing variance along principal component direction
+   The objective function to maximize is
+   # E((x*u - E(x*u))^2) 
+   \begin{equation}
+   \mathbb{E}(( x \cdot u - \mathbb{E}(x \cdot u))^2)
+   \end{equation}
+   where $u$ is a principal component (assuming orthonormal) and $x$ is a data point
+   
+   The above formulae can be reduced to the following form
+   # we want to maximize w.r.t u:
+   # u' * E((x-E(x)) * (x-E(x))') * u
+   \begin{equation}
+   u^t \mathbb{E}( (x-\mathbb{E}) (x-\mathbb{E})^t ) u
+   \end{equation}
+   
+   where $\mathbb{E}( (x-\mathbb{E}) (x-\mathbb{E})^t )$ is the second moment matrix (also sample
+   variance matrix)
+   
+   TOBE finished:
+   # E((x-E(x)) * (x-E(x))') = X*X'
+   \begin{equation}
+   \mathbb{E}( (x-\mathbb{E}) (x-\mathbb{E})^t ) = X X^t
+   \end{equation}
+** Minimizing reconstruction error (TOBE written)
+
+* Eigen Vector Decomposition
+  TOBE wirtten
+
+* SVD
+  SVD stands for singular value decomposition. It is a powerful technique that links the nullspace, 
+  the column space, the row space, and the kernel of $A^t$ together ($A$ being an arbitrary matrix).
+  # A = U*sigma*V'
+  \begin{equation}
+  A = U \Sigma V^t
+  \end{equation}
+  where A is a matrix we want to decompose, U a matrix with columns eigenvectors of $A A^t$, and V a
+  matrix with columns eigenvectors of $A^t A$.
+  
+** proof of SVD's properties (TOBE written)
+   + U is a matrix with columns eigenvectors of $A A^t$
+   # AA' = (U*sigma*V') * (U*sigma*V')' = U*(sigma^2)*U'
+   \begin{equation}
+   A A^t = (U \Sigma V^t) (U \Sigma V^t)^t = U \Sigma^2 U^t
+   \end{equation}
+   From the above equation, it should be clear that U is the matrix having the eigenvectors of AA' as columns
+
+   + V is a matrix with columns eigenvectors of $A^t A$
+   # A'A = (U*sigma*V')' * (U*sigma*V) = V*(sigma^2)*V'
+   \begin{equation}
+   A^t A = (U \Sigma V^t)^t (U \Sigma V^t) = V \Sigma^2 V^t
+   \end{equation}
+   From the above equation, it should be clear that V is the matrix having the eigenvectors of A'A as columns
+
+** relation with PCA
+U = eigenvector of $A A^t$
+V = eigenvector of $A^t A$
+
+
+* LSA
+  latent syntax analysis
+  TOBE written
+** turn a sparse matrix into dense matrix
+   TOBE written

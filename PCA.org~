@@ -1,0 +1,30 @@
+Principal Component Analysis
+
+* Projection matrix
+  \begin{equation}
+  \theta = (A'A)A'X
+  \end{equation}
+
+* PCA
+** Maximizing variance along principal component direction
+E((x*u - E(x*u))^2) where u is a principal component (assuming orthonormal), x is a data point
+
+The above formulae can be shown to reduce to the following form:
+we want to maximize w.r.t u:
+u' * E((x-E(x)) * (x-E(x))') * u
+where E((x-E(x)) * (x-E(x))') is called second moment matrix (in this context, it is also the sample variance matrix)
+
+E((x-E(x)) * (x-E(x))') = X*X'
+** Minimizing reconstruction error (TOBE written)
+
+* SVD
+A = U*sigma*V
+A'A = (U*sigma*V)' * (U*sigma*V) = V'*(sigma^2)*V
+from the above equation, it should be clear that V is the matrix having the eigenvectors of A'A as columns
+** relation with PCA
+U = eigenvector of AA'
+V = eigenvector of A'A
+
+* LSA
+latent syntax analysis
+** turn a sparse matrix into dense matrix
