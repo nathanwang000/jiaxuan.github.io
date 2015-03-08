@@ -1,0 +1,4 @@
+{% extends 'blog_templates/base.html' %}
+{% block title %}Principal Component Analysis {% endblock %}
+{% block page_content %}
+{% endblock %}

@@ -67,9 +67,13 @@ Principal Component Analysis
 U = eigenvector of $A A^t$
 V = eigenvector of $A^t A$
 
+** example uses in computer vision (stitching images)
+   TOBE written
+   homogeneous coordinates
 
 * LSA
   latent syntax analysis
   TOBE written
 ** turn a sparse matrix into dense matrix
    TOBE written
+

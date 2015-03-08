@@ -33,9 +33,9 @@ def blog():
 def blog_about():
     return render_template('blog_templates/about.html')
 
-@app.route('/blog/post')
-def blog_post():
-    return render_template('blog_templates/PCA.html')
+@app.route('/blog/post/<postname>')
+def blog_post(postname):
+    return render_template('blog_templates/' + postname + '.html')
 
 @app.route('/blog/contact')
 def blog_contract():
