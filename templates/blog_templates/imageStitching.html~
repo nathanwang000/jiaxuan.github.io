@@ -1,0 +1,329 @@
+{% extends 'blog_templates/base.html' %}
+{% block title %}Image Stitching{% endblock %}
+{% block page_content %}
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Image Stitching</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Computer Vision HW4"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2015-03-08T15:59-0400"/>
+<meta name="author" content="Jiaxuan Wang"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Computer Vision HW4</h1>
+
+<p>Image stitching is a common task. Ever wondered how image stitching is done for panorama, here's an algorithm.
+</p>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Pairwise stitching</a></li>
+<li><a href="#sec-2">2 Multiple image stitching</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Pairwise stitching</h2>
+<div class="outline-text-2" id="text-1">
+
+<p>  In this part of the assignment, the task is to stitch together two images. The general setup is described as the following:
+</p><ol>
+<li>Preprocessing images
+<ul>
+<li>The two input images were converted to double and turned to gray scale
+</li>
+</ul>
+
+</li>
+<li>Detecting interesting spots
+<ul>
+<li>Harris corner detector was used and applied to both images
+</li>
+</ul>
+
+</li>
+<li>Extracting features from detected blobs
+<ul>
+<li>SIFT feature was extracted from each detected blob
+</li>
+</ul>
+
+</li>
+<li>Putative matching
+<ul>
+<li>A similarity matrix between 2 sets of features was build using pairwise squared Euclidean distance
+</li>
+<li>Nearest Neighbor algorithm was applied on the similarity matrix to match features in one image to those of the other
+</li>
+</ul>
+
+</li>
+<li>Model selection
+<ul>
+<li>RANSAC was implemented
+<ul>
+<li>s = minimum points was chosen to be 4
+</li>
+<li>t = inlier threshold was chosen to be 30
+</li>
+<li>N = number of iteration was chosen to be 8000
+</li>
+<li>d = consensus size was chosen to be 0.1 of number of features (I expect the inlier ratio to be 0.1)
+</li>
+<li>4 pairs of feature matching was selected in each iteration of the algorithm
+</li>
+<li>A homogeneous least square equation was solved using SVD
+</li>
+<li>using the found transformation, the sum of square error was calculated
+</li>
+<li>inliers were selected by accepting all features with SSE &lt; t
+</li>
+<li>if the number of inliers is larger than d, the homogeneous equation for homography is recalculated by fitting all points, and the number of inliers is updated
+</li>
+<li>Thae final output is the homography transformation with the largest number of inliers 
+</li>
+</ul>
+
+</li>
+</ul>
+
+</li>
+<li>Image stitching
+<ul>
+<li>images are stitched together by applying the best transformation on the first image and superimpose the transformed image on the second image (the overlapping region used the second image for color output, and took average for the grayscale output)
+</li>
+</ul>
+
+</li>
+</ol>
+
+
+<p>
+Outputs:
+Number of homography inliers is 371
+Average residual is 327016.491630
+</p>
+<p>
+<img src="/static/blog_static/image_stitching/inlier_matches.jpg"  alt="/static/blog_static/image_stitching/inlier_matches.jpg" />
+</p>
+<p>
+<img src="/static/blog_static/image_stitching/uttower_bw.jpg"  alt="/static/blog_static/image_stitching/uttower_bw.jpg" />
+</p>
+<p>
+<img src="/static/blog_static/image_stitching/uttower_color.jpg"  alt="/static/blog_static/image_stitching/uttower_color.jpg" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Multiple image stitching</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>The second part of the assignment is to stitch multiple images together. My solution is outlined as the following:
+</p><ol>
+<li>Image preprocessing
+</li>
+<li>images were read in and stored in a data structure called imCell
+</li>
+<li>Image stitching
+</li>
+<li>while imCell has more than 1 element
+  for each element in imCell except the first one
+  compute the number of inliers for the stitch between this element and imCell{1} using code from part1 (the order of stitching is important because I used nearest neighbor to match the features from the first image to the second image which means the transformation is unlikely to be one to one. I used the current element as the first argument of stitch because it doesn’t have overlapping features so that most of its distinctive points are preserved. I cannot use imCell{1} because it contains too much irrelevant details after several iteration inside the while loop)
+
+<p>  
+  check that the max number of inliers is greater than 50 (arbitrarily chosen so as to assure that the found transformation is reliable) and proceed to the next step. Otherwise, go back to the previous for loop if less than 10 times going back tried. If more than 10 times tried, restart from step 2 by replacing imCell with the original imCell
+</p>
+<p>  
+  update imCell{1} with the color image output from the stitch(imCell{chosen}, imCell{1}) where ‘chosen’ is the id of the element that gives the most inliers
+</p>
+<p>
+  delete the imCell(chosen)
+</p></li>
+</ol>
+
+
+<p>
+Output:<br/>
+The order of stitching for Pier is: <br/>
+1.JPG stitched with 2.JPG<br/>
+the combined JPG was stitched with 3.JPG
+</p>
+
+<div class="figure">
+<p><img src="/static/blog_static/image_stitching/pier_stitched.jpg"  alt="/static/blog_static/image_stitching/pier_stitched.jpg" /></p>
+<p>Graph 2.1 Pier stitched image</p>
+</div>
+
+<p>
+The order of stitching for Hill is: 
+1.JPG stitched with 2.JPG
+the combined JPG was stitched with 3.JPG
+</p>
+
+<div class="figure">
+<p><img src="/static/blog_static/image_stitching/hill_stitched.jpg"  alt="/static/blog_static/image_stitching/hill_stitched.jpg" /></p>
+<p>Graph 2.2 Hill stitched image</p>
+</div>
+
+<p>
+The order of stitching for Ledge is: 
+1.JPG stitched with 2.JPG
+the combined JPG was stitched with 3.JPG
+</p>
+
+<div class="figure">
+<p><img src="/static/blog_static/image_stitching/ledge_stitched.jpg"  alt="/static/blog_static/image_stitching/ledge_stitched.jpg" /></p>
+<p>Graph 2.3 Ledge stitched image</p>
+</div>
+
+<p>
+Discussion:
+There are some artifact in stitching multiple images.
+</p><ol>
+<li>Stitched image has inconsistent colors<br/>
+   Since images comes from different sources, when stitching them together, the overall color is
+   inconsistent as well. This could be addressed by using one image as a baseline and reconstruct the other image
+   using its gradient.
+</li>
+<li>Stitched image has obvious separating lines between images<br/>
+   In performing transformation, some of the pixels on the boundary get assigned no colors. It could be an artifact of matlab.
+</li>
+<li>On rare occasions the algorithm didn’t succeed<br/>
+   There are several reasons that could induce this problem
+<ul>
+<li>no iteration reached the desired inlier ratio (addressed by lowering inlier ratio and increasing number of iterations)
+</li>
+<li>too little inliers (addressed in my implementation by either reentering the for loop or restarting the algorithm)
+</li>
+<li>matlab artifact in applying transformation (in rare cases, matlab imtransform function rescales the transformed image, can be addressed by setting ‘XYScale’ to 1)
+</li>
+</ul>
+
+</li>
+</ol>
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2015-03-08T15:59-0400</p>
+<p class="author">Author: Jiaxuan Wang</p>
+
+</div>
+</body>
+</html>
+{% endblock %}
