@@ -45,6 +45,10 @@ def blog_contract():
 def run_php():
     return send_from_directory(app.static_folder, 'blog_static/mail/contact_me.php')
 
+@app.route('/papers/<papername>')
+def papers(papername):
+    return send_from_directory('static/papers', papername)
+
 @app.route('/googlee07c61c8e4157065.html')
 def google_crawl():
     return render_template('googlee07c61c8e4157065.html')
