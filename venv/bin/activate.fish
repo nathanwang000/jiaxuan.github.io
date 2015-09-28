@@ -32,7 +32,7 @@ end
 # unset irrelevant variables
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/jiaxuan/2014fall_practice/wikiproject/legitur/venv"
+set -gx VIRTUAL_ENV "/Users/jiaxuan/personalWebsite/jiaxuan/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

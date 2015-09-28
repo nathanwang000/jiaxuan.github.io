@@ -34,44 +34,49 @@
       <img id="author_photo" src="/static/jiaxuan.jpg"></img>
     </div>
     <div class="col-xs-6">
-      I'm a student at University of Michigan, majoring in <i>computer science</i>.<br/>
+      Hi there, I'm a student at University of Michigan, major in <i>computer science</i>.<br/>
       <br/>
-      My primary interest is in <i>Computer Vision</i> and <i>Machine learning</i>.<br/>
+      I want to be a software developer or data scientist upon graduation.<br/>
       <br/>
-      This site contains some of my past works: small games located on the navigation bar.<br/>
+      I'm strong in both in math and stats. As an undergrad, I did fair amount of research in <b>Computer Vison</b> and <b>Machine Learning</b> (most of which deals with deep learning). <b>I'm currently developing a variant of convolutional neural network, and is going to be the first auther of a paper for CVPR 2016 submission</b>.
       <br/>
-      Currently, I'm fascinated by <i>deep learning</i> and is building a blog to record some of my random thoughts along with tutorials on various machine learning topics. 
+      <br/>
+      Here is one of my past publication:
+      <br>
+      <b>HICO: A Benchmark for Recognizing Human-Object Interactions in Images </b><br/>
+      Yu-Wei Chao, Zhan Wang, Yugeng He, <b>Jiaxuan Wang</b>, Jia Deng<br/>
+      International Conference on Computer Vision (ICCV) 2015
+      <br/>
+      <br/>
+      I used to write small games: check out some of the games by clicking on the links located on the 
+      navigation bar.<br/>
 
       <h3>Skill Set:</h3>
-
-      {% set skills={"C":"80", "C++":"85", "Python":"90", "R":"80", "Javascript":"70", "Ruby":"50", 
-      "Bash script":"75", "scheme":"40", "Java":"50"} %}
+      <h4>Machine Learning framework</h4>
+      {% set skills={"Theano":"10","Torch":"90","Caffe":"70","Scikit-learn":"80"} %}
       {% for skill, value in skills.iteritems() %}
       <div class="progress">
-	<div class="progress-bar progress-bar-striped" role="progressbar" 
+	<div class="progress-bar progress-bar-info" role="progressbar" 
 	     aria-valuenow="{{value}}" aria-valuemin="0" aria-valuemax="100" 
 	     style="width: {{value}}%;">
 	  <span>{{skill}}</span>
 	</div>
       </div>
       {% endfor %}
+      
+      <h4>Language</h4>
+      {% set languages={"C":"80", "C++":"85", "Python":"90", "R":"60", "Javascript":"70", "Ruby":"50", 
+      "Bash":"75", "scheme":"40", "Java":"50","Lua":"80"} %}
+      {% for l, value in languages.iteritems() %}
+      <div class="progress">
+	<div class="progress-bar progress-bar-striped" role="progressbar" 
+	     aria-valuenow="{{value}}" aria-valuemin="0" aria-valuemax="100" 
+	     style="width: {{value}}%;">
+	  <span>{{l}}</span>
+	</div>
+      </div>
+      {% endfor %}
 
-      <br/>
-      I'm contributing a research in <i>Computer Vision</i> and is an author on a to-be published paper on ICCV</br>
-      <a href="#">currently unavailable</a>
-      <br/><br/>
-      I'm currently developing a new deep learning archetecture called ROCNN (still in its secrete state). I've completed the implementation in Matlab and Torch 7, and is 
-      training the network hoping to surpass the state of art on benchmark dataset like rot-mnist and norb.
-      <br/><br/>
-      I'm also engaged in building a social network site. Its prototype should be completed by Sep. 2015.
-      <!-- called  -->
-      <!-- <i>Legitur</i> to encourage people reading books. The project is  -->
-      <!-- still in its infant state and you can check it out on this  -->
-      <!-- github page. -->
-      <!-- </br> -->
-      <!-- </br> -->
-      <!-- <a href="https://github.com/nathanwang000/Legitur" class="btn btn-success" style="margin-top:10px" -->
-      <!-- 	 target="_blank">Check out Legitur</a> -->
       
     </div>
   </div>
