@@ -13,6 +13,10 @@ manager = Manager(app)
 def index():
     return render_template('index.html')
 
+@app.route('/timeTable')
+def math_timeTable():
+    return render_template("timeTable_templates/index.html")
+
 @app.route('/2048')
 def game_2048():
     return render_template("2048_templates/index.html")
