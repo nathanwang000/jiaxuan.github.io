@@ -1,16 +1,19 @@
 {% extends "base.html" %}
 {% block head %}
 {{ super() }}
-<meta charset="UTF-8" />
 <title>time table drawing</title>
-<!-- <link rel="stylesheet" href="/static/snake_static/base.css" type="text/css" /> -->
+<meta charset="utf-8" />
+<script type="text/javascript" src="/static/2048_static/jquery.js"></script>
 {% endblock %}
 {% block page_content %}
+<h1>Time Table</h1>
+
+<!DOCTYPE html>
 <canvas id="myCanvas" width="500" height="300"></canvas>
 
-<button type="button" id="draw">draw</button>
 <button type="button" id="mult_up">+</button>
-<button type="button" id="mult_down">-</button>
-<script type="text/javascript" src="/static/2048_static/jquery.js"></script>
-<script src="/static/timeTable_static/timetable.js"></script>
+<button type="button" id="mult_down">-</button>    
+<img id="canvasImg" width="500" height="300"></img>
+<br/>
+<script src="/static/timeTable_static/timetable.js"></script>    
 {% endblock %}

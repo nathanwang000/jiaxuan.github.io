@@ -51,22 +51,29 @@ function drawPattern(n, multN) {
     context.stroke();        
 }
 
-$( document ).ready(function() {
-    drawCircle();
-    markCircle(n);    
-});
-
-$("#draw").click(function() {
+function updateDrawing() {
     context.clearRect(0,0,w,h);
     console.log(multN);
     drawCircle();
     drawPattern(n,multN);
-})
+    // save canvas image as data url (png format by default)
+    var dataURL = canvas.toDataURL();
+    // set canvasImg image src to dataURL
+    // so it can be saved as an image
+    document.getElementById('canvasImg').src = dataURL;
+}
+
+$( document ).ready(function() {
+    markCircle(n);
+    updateDrawing();
+});
 
 $("#mult_up").click(function() {
     multN++;
+    updateDrawing();
 })
 
 $("#mult_down").click(function() {
     multN--;
+    updateDrawing();    
 })
