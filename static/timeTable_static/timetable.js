@@ -11,51 +11,55 @@ let cy = h/2;
 
 // draw a circle
 function drawCircle() {
-    context.beginPath();
     context.arc(cx, cy, radius, 0, Math.PI * 2);
-    context.stroke();
-}
-
-let circle = [{x:cx, y:cy}]
-
-// mark points on circle
-function markCircle(n) {
-
-    circle = new Array() // clear old content
-    let theta = 0;
-    let step = Math.PI * 2 / n;
-
-    function m_h() {
-	if (n--) {
-	    circle[circle.length] = {x:cx+radius*Math.cos(theta),
-				     y:cy+radius*Math.sin(theta)};
-	    theta += step;
-	    m_h(); // mark the next one
-	}
-    }
-
-    m_h();
 }
 
 function connect(from, to) {
-    context.moveTo(circle[from].x, circle[from].y);
-    context.lineTo(circle[to].x, circle[to].y);
-
+    // from and to must be below 
+    function coord(r) {
+	let theta = r / n * Math.PI * 2;
+	return {x:cx+radius*Math.cos(theta),
+		y:cy+radius*Math.sin(theta)};
+    }
+    
+    context.moveTo(coord(from).x, coord(from).y);
+    context.lineTo(coord(to).x, coord(to).y);
 }
 
-function drawPattern(n, multN) {
-    context.beginPath();    
+function drawPattern() {
+    multN = (n + multN) % n
     for (let i=0; i<n; ++i) {
 	connect(i, (i*multN) %n);
     }
-    context.stroke();        
 }
+
+let color = { value: 0,
+	      hexformat: function () {
+		  let colorStr = ((this.value++)
+				  % parseInt("1000000",16)
+				 ).toString(16);
+
+		  let toAppend = "#";
+		  let n = 6-colorStr.length;
+		  while (n--) toAppend += "0";
+		  console.log(toAppend + colorStr);		  
+		  return toAppend + colorStr;
+	      },
+	      hslformat: function() {
+		  return "hsl(" + (this.value++ % 360) + ", 100%, 30%)";
+	      }
+	    };
 
 function updateDrawing() {
     context.clearRect(0,0,w,h);
     console.log(multN);
+
+    context.beginPath();
+    context.strokeStyle = color.hslformat();
     drawCircle();
-    drawPattern(n,multN);
+    drawPattern();
+    context.stroke();
+    
     // save canvas image as data url (png format by default)
     var dataURL = canvas.toDataURL();
     // set canvasImg image src to dataURL
@@ -64,7 +68,6 @@ function updateDrawing() {
 }
 
 $( document ).ready(function() {
-    markCircle(n);
     updateDrawing();
 });
 
@@ -77,3 +80,44 @@ $("#mult_down").click(function() {
     multN--;
     updateDrawing();    
 })
+
+function controlTime() {
+    let timeVar;
+    let step = 0;
+    let started = false;
+    return {
+	start: function() {
+	    if (started) return;
+	    started = true;	    
+	    timeVar = window.setInterval(function() {
+		multN = multN + step;
+		updateDrawing();
+	    },100)
+	},
+	leftScroll: function() {
+	    step -= 0.05;
+	    this.start();
+	},
+	rightScroll: function() {
+	    step += 0.05;
+	    this.start();	    
+	},
+	stop: function() {
+	    started = false;
+	    window.clearInterval(timeVar);
+	}
+    }
+}
+
+(function() {
+    let auto = controlTime()
+    $("#autoL").click(function() {
+	auto.leftScroll();
+    })
+    $("#autoR").click(function() {
+	auto.rightScroll();
+    })
+    $("#stop").click(function() {
+	auto.stop();	
+    })
+})()
