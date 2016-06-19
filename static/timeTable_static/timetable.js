@@ -2,7 +2,7 @@
 let canvas = $("#myCanvas")[0];
 let w = canvas.width;
 let h = canvas.height;
-let n = 100; // number of pts on circle
+let n = 200; // number of pts on circle
 let multN = 2; 
 let context = canvas.getContext('2d');
 let radius = Math.min(w/4,h/4);
@@ -42,7 +42,6 @@ let color = { value: 0,
 		  let toAppend = "#";
 		  let n = 6-colorStr.length;
 		  while (n--) toAppend += "0";
-		  console.log(toAppend + colorStr);		  
 		  return toAppend + colorStr;
 	      },
 	      hslformat: function() {
@@ -52,7 +51,6 @@ let color = { value: 0,
 
 function updateDrawing() {
     context.clearRect(0,0,w,h);
-    console.log(multN);
 
     context.beginPath();
     context.strokeStyle = color.hslformat();
@@ -73,13 +71,21 @@ $( document ).ready(function() {
 
 $("#mult_up").click(function() {
     multN++;
+    $("#m").val(multN);    
     updateDrawing();
 })
 
 $("#mult_down").click(function() {
     multN--;
+    $("#m").val(multN);    
     updateDrawing();    
 })
+
+$("#submit").click(function() {
+    multN = parseInt($("#m").val()) || 2;
+    n = parseInt($("#n").val()) || 200;
+    updateDrawing();        
+}) 
 
 function controlTime() {
     let timeVar;
@@ -91,6 +97,7 @@ function controlTime() {
 	    started = true;	    
 	    timeVar = window.setInterval(function() {
 		multN = multN + step;
+		$("#m").val(multN);		
 		updateDrawing();
 	    },100)
 	},
