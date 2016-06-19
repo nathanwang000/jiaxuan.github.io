@@ -103,6 +103,7 @@ function controlTime() {
 	    this.start();	    
 	},
 	stop: function() {
+	    step = 0;	    
 	    started = false;
 	    window.clearInterval(timeVar);
 	}
