@@ -13,6 +13,10 @@ manager = Manager(app)
 def index():
     return render_template('index.html')
 
+@app.route('/random')
+def random_page():
+    return render_template('random.html')
+
 @app.route('/timeTable')
 def math_timeTable():
     return render_template("timeTable_templates/index.html")
