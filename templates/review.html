@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block page_content %}
+{{super()}}
+<div class="wrapper">
+  This section holds reviews I wrote while reading papers. Hopefully I will find
+  them useful later. <br/><br/>
+
+  {% for n in names %}
+  <a href="{{n}}">{{ n }}</a>
+  {% endfor %}
+</div>
+{% endblock %}

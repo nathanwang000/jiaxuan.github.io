@@ -1,0 +1,97 @@
+#+TITLE: DARTS: Differentiable Architecture Search
+#+DATE: <2018-08-13 Mon>
+#+AUTHOR: MLD3 lab (written by Jenna Wiens)
+#+EMAIL: jiaxuan@umich
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t c:nil
+#+OPTIONS: creator:comment d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t
+#+OPTIONS: num:t p:nil pri:nil stat:t tags:t tasks:t tex:t timestamp:t toc:nil
+#+OPTIONS: todo:t |:t
+#+CREATOR: Emacs 25.1.1 (Org mode 8.2.10)
+#+DESCRIPTION:
+#+EXCLUDE_TAGS: noexport
+#+KEYWORDS:
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+
+DARTS: Differentiable Architecture Search
+
+Summary.
+
+The authors tackle an important issue: automating architecture search. Existing
+methods (e.g., evolution and RL methods) are computationally intensive and
+require large amounts of GPU resources, making them impractical for many
+users. In contrast to previously proposed algorithms that search over a discrete
+space, the authors propose a continuous search space allowing them to use
+gradient based methods for optimization. This in and of itself is not
+novel. Others have proposed search algorithms that operate within a continuous
+domain. In contrast to that work, DARTS (their proposed method) generalizes to
+both CNNs and RNNs. The authors achieve this generalizability by constraining
+the problem to a search over possible cell architectures, where a cell is a
+building block in the overall architecture: cells are stacked repeatedly in
+CNNs, or recursively combined in the case of RNNs. This idea of searching for a
+computation cell as the building block of the network has also been proposed by
+others. By constraining the problem to individual cells, the search space is
+significantly reduced, leading to increased efficiency.
+
+The authors formulate the problem as a bi-level optimization problem in which
+they optimize both the cell architecture parameters (alpha) and the architecture
+weights, to minimize validation loss. Their solution is based on an
+approximation to the architecture gradient. This approximation allows for
+efficient optimization, but its unclear how this affects results.
+
+Authors apply their proposed approach to several benchmark datasets including
+both images and language tasks. Relative to existing approaches, they achieve
+comparable discriminative performance, while achieving significant speeds ups in
+identifying the final architecture. Furthermore, the authors demonstrate that
+the building blocks learned generalize to other tasks (e.g., source: CIFAR-10,
+target:ImageNet). This may be useful in settings where the training set is too
+large for the optimization procedure (e.g., ImageNet), or in settings where
+computational resources are scarce.
+
+
+Strengths & Weaknesses
+
++The authors compare to a large number of baseline methods, even implementing
+existing approaches and training the corresponding architectures using their
+setup.
+
++Paper was easy to follow, well-written and clearly organized.
+
++Given the amount of detail included in the experimental setup, the paper
+appears to be highly reproducible. Moreover, the authors use publicly available
+datasets and share their code.
+
++The main idea is simple, yet powerful. The approach appears to be relatively
+straightforward to implement, in comparison to other existing architecture
+search methods.
+
+-Though the title, abstract and introduction claimed to solve the architecture
+search problem, in reality the paper instead solves a smaller problem
+automatically. It still relies on a manual combination of the building
+blocks. It would may be clearer to state this earlier on.
+
+-The motivation for the transferability experiments was lacking. It’s unclear
+why cell-transferability is important, or expected in many applications. How
+would the approach perform on an undersampled ImageNet? Would be nice to see
+this additional experiment, to understand what is really to be gained from the
+transferability contribution.
+
+-ENAS, an existing approach for architecture search, efficiently achieves state
+of the art results on both datasets. Though comparisons to ENAS are included,
+it’s not clear what advantages or disadvantages exist to choosing one approach
+over the other. In the introduction, authors highlight the main advantage of
+their approach as efficiency due to the gradient-based optimization
+formulation. However, ENAS appears to be as (if not more) efficient than
+DARTS. Additional details regarding ENAS, and settings in which DARTS would be
+more appropriate would be helpful.
+
+-It’s not clear how the overall architectures were selected, given the cells. In
+particular, how was the number of output channels determined after each
+convolutional layer? What other choices were made and how? (seems like many
+potentially important decisions)
+
+-Somewhat surprisingly, a model based on a random cell-architecture choice
+ achieves similar discriminative performance to some of the other “optimized”
+ models. Yet, is FAR more efficient. Can the authors shed light on why this may
+ be the case? It may be worth exploring other datasets in which the difference
+ between a random and optimized model is greater.

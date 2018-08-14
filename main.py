@@ -3,6 +3,7 @@ from flask import Flask, render_template, send_from_directory
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.script import Manager
 from flask.ext.moment import Moment
+from glob import glob
 
 app = Flask(__name__, static_folder='static', static_url_path='/static')
 Bootstrap(app)
@@ -20,6 +21,16 @@ def random_page():
 @app.route('/replication')
 def replication():
     return render_template('replication.html')
+
+@app.route('/review')
+def review():
+    names = glob('reviews/*.txt')
+    return render_template('review.html', names=names)
+
+@app.route('/reviews/<postname>')
+def review_post(postname):
+    content = open('reviews/' + postname).read().decode('utf-8')
+    return render_template('review_post.html', content=content)
 
 @app.route('/timeTable')
 def math_timeTable():
