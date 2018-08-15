@@ -1,0 +1,32 @@
+#+TITLE: Multi-Attention Multi-Class Constraint for Fine-grained Image Recognition
+#+DATE: <2018-08-15 Wed>
+#+AUTHOR: Jiaxuan Wang
+#+EMAIL: jiaxuan@umich
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t c:nil
+#+OPTIONS: creator:comment d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t
+#+OPTIONS: num:t p:nil pri:nil stat:t tags:t tasks:t tex:t timestamp:t toc:t
+#+OPTIONS: todo:t |:t
+#+CREATOR: Emacs 25.1.1 (Org mode 8.2.10)
+#+DESCRIPTION:
+#+EXCLUDE_TAGS: noexport
+#+KEYWORDS:
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+
+*Summary*
+
+Uses 2 important modules: one squeeze multi activation attention (channelwise
+with global average pooling, then sigmoid), and MAMC loss (encourage
+intraclass same attention, discourage interclass attention or intraclass
+different attention using ideas from metric learning; this loss is imposed on
+the attention features)
+
+*Relevance to me* 
+
+They ignored
+
+1) spatial attention
+2) opportunity to use MAMC to find confounding
+3) use attention to resolve confounding by discouraging counfounders to share
+   attention
+

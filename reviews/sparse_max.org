@@ -1,0 +1,62 @@
+#+TITLE: From Softmax to Sparsemax
+#+DATE: <2018-08-15 Wed>
+#+AUTHOR: Jiaxuan Wang
+#+EMAIL: jiaxuan@umich
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t c:nil
+#+OPTIONS: creator:comment d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t
+#+OPTIONS: num:t p:nil pri:nil stat:t tags:t tasks:t tex:t timestamp:t toc:t
+#+OPTIONS: todo:t |:t
+#+CREATOR: Emacs 25.1.1 (Org mode 8.2.10)
+#+DESCRIPTION:
+#+EXCLUDE_TAGS: noexport
+#+KEYWORDS:
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+
+*Summary*
+
+The authors tackle an important issue: replacing softmax to sparsemax so that
+model output and attention is sparse. Existing methods only shown superiority
+over softmax in limited sense. Sparsemax, however, is able to attain almost all
+the important properties of softmax plus it is sparse. 
+
+Below is a illustration of how this method works. It essentially project the
+activation vector z (denoted by a circle below) on to the simplex (the slanted
+line with slope -1 and intercept at 1). It is a l2 projection.
+
+#+BEGIN_EXAMPLE
+                     ^
+                     |      o
+                     |\
+                     | \
+                     |  \
+                     |---------->         
+#+END_EXAMPLE
+
+
+The projection operation can be done in O(n log n) time with usual sorting, or
+O(n) with linear selection. It is also easy to compute its gradient.
+
+Applied on both language attention inference tasks and simulated multi-label
+classification task, it acheives good performance.
+
+*Strength & Weakness*
+
++ Very strong theoretical result
+
++ Paper is very well written, even the equations are clearly explained
+
++ the main idea is simple and useful
+
+- Sparseness in activation is not very motivated other than model efficiency
+
+*Relevance to me*
+
+It gives me a way to think about sparseness. Try use it in attention mechanisms.
+
+An implementation available at:
+
+[[https://github.com/msobroza/SparsemaxPytorch]]
+
+I can try to extend it to group versions: so that it may be useful for finding
+coherent attention.

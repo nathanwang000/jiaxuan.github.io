@@ -1,0 +1,34 @@
+	   __________________________________________________
+
+	       MULTI-ATTENTION MULTI-CLASS CONSTRAINT FOR
+		     FINE-GRAINED IMAGE RECOGNITION
+
+			      Jiaxuan Wang
+	   __________________________________________________
+
+
+			    <2018-08-15 Wed>
+
+
+Table of Contents
+_________________
+
+
+
+
+*Summary*
+
+Uses 2 important modules: one squeeze multi activation attention
+(channelwise with global average pooling, then sigmoid), and MAMC loss
+(encourage intraclass same attention, discourage interclass attention or
+intraclass different attention using ideas from metric learning; this
+loss is imposed on the attention features)
+
+*Relevance to me*
+
+They ignored
+
+1) spatial attention
+2) opportunity to use MAMC to find confounding
+3) use attention to resolve confounding by discouraging counfounders to
+   share attention
