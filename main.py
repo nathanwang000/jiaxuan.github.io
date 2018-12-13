@@ -27,6 +27,10 @@ def review():
     names = glob('reviews/*.txt')
     return render_template('review.html', names=names)
 
+@app.route('/docs/<postname>')
+def docs_post(postname):
+    return send_from_directory('docs', postname)
+
 @app.route('/reviews/<postname>')
 def review_post(postname):
     content = open('reviews/' + postname).read().decode('utf-8')
