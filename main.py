@@ -3,9 +3,6 @@ from flask import Flask, render_template, send_from_directory
 from flask_bootstrap import Bootstrap
 from flask_script import Manager
 from flask_moment import Moment
-# from flask.ext.bootstrap import Bootstrap
-# from flask.ext.script import Manager
-# from flask.ext.moment import Moment
 from glob import glob
 
 app = Flask(__name__, static_folder='static', static_url_path='/static')
@@ -36,7 +33,7 @@ def docs_post(postname):
 
 @app.route('/reviews/<postname>')
 def review_post(postname):
-    content = open('reviews/' + postname).read().decode('utf-8')
+    content = open('reviews/' + postname).read()#.decode('utf-8')
     return render_template('review_post.html', content=content)
 
 @app.route('/timeTable')
