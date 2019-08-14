@@ -64,3 +64,6 @@ mechanisms.
 An implementation available at:
 
 [https://github.com/msobroza/SparsemaxPytorch]
+
+I can try to extend it to group versions: so that it may be useful for
+finding coherent attention.

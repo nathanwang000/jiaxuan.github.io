@@ -1,8 +1,11 @@
 #!venv/bin/python
 from flask import Flask, render_template, send_from_directory
-from flask.ext.bootstrap import Bootstrap
-from flask.ext.script import Manager
-from flask.ext.moment import Moment
+from flask_bootstrap import Bootstrap
+from flask_script import Manager
+from flask_moment import Moment
+# from flask.ext.bootstrap import Bootstrap
+# from flask.ext.script import Manager
+# from flask.ext.moment import Moment
 from glob import glob
 
 app = Flask(__name__, static_folder='static', static_url_path='/static')
