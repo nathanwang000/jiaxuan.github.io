@@ -76,6 +76,10 @@ def run_php():
 def papers(papername):
     return send_from_directory('static/papers', papername)
 
+@app.route('/cv')
+def cv():
+    return send_from_directory('static', 'resume2019.pdf')
+
 @app.route('/googlee07c61c8e4157065.html')
 def google_crawl():
     return render_template('googlee07c61c8e4157065.html')
