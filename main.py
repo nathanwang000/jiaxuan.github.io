@@ -16,15 +16,15 @@ freezer = Freezer(app)
 def index():
     return render_template('index.html')
 
-@app.route('/random')
+@app.route('/random/')
 def random_page():
     return render_template('random.html')
 
-@app.route('/replication')
+@app.route('/replication/')
 def replication():
     return render_template('replication.html')
 
-@app.route('/review')
+@app.route('/review/')
 def review():
     names = glob('reviews/*.txt')
     return render_template('review.html', names=names)
@@ -38,7 +38,7 @@ def review_post(postname):
     content = open('reviews/' + postname).read()#.decode('utf-8')
     return render_template('review_post.html', content=content)
 
-@app.route('/timeTable')
+@app.route('/timeTable/')
 def math_timeTable():
     return render_template("timeTable_templates/index.html")
 
@@ -46,11 +46,11 @@ def math_timeTable():
 def game_2048():
     return render_template("2048_templates/index.html")
 
-@app.route("/shooter")
+@app.route("/shooter/")
 def game_shooter():
     return render_template("shooter_templates/index.html")
 
-@app.route("/snake")
+@app.route("/snake/")
 def game_snake():
     return render_template("snake_templates/index.html")
 
@@ -58,7 +58,7 @@ def game_snake():
 def blog():
     return render_template('blog_templates/index.html')
 
-@app.route('/blog/about')
+@app.route('/blog/about/')
 def blog_about():
     return render_template('blog_templates/about.html')
 
@@ -66,7 +66,7 @@ def blog_about():
 def blog_post(postname):
     return render_template('blog_templates/' + postname + '.html')
 
-@app.route('/blog/contact')
+@app.route('/blog/contact/')
 def blog_contract():
     return render_template('blog_templates/contact.html')
 
@@ -87,5 +87,5 @@ def google_crawl():
     return render_template('googlee07c61c8e4157065.html')
 
 if __name__ == '__main__':
-    # manager.run()
-    freezer.freeze()
+    manager.run()
+    # freezer.freeze()
