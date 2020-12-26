@@ -1,4 +1,5 @@
 #!venv/bin/python
+from flask_frozen import Freezer
 from flask import Flask, render_template, send_from_directory
 from flask_bootstrap import Bootstrap
 from flask_script import Manager
@@ -9,6 +10,7 @@ app = Flask(__name__, static_folder='static', static_url_path='/static')
 Bootstrap(app)
 Moment(app)
 manager = Manager(app)
+freezer = Freezer(app)
 
 @app.route('/')
 def index():
@@ -40,7 +42,7 @@ def review_post(postname):
 def math_timeTable():
     return render_template("timeTable_templates/index.html")
 
-@app.route('/2048')
+@app.route('/2048/')
 def game_2048():
     return render_template("2048_templates/index.html")
 
@@ -52,7 +54,7 @@ def game_shooter():
 def game_snake():
     return render_template("snake_templates/index.html")
 
-@app.route('/blog')
+@app.route('/blog/')
 def blog():
     return render_template('blog_templates/index.html')
 
@@ -76,7 +78,7 @@ def run_php():
 def papers(papername):
     return send_from_directory('static/papers', papername)
 
-@app.route('/cv')
+@app.route('/cv/')
 def cv():
     return send_from_directory('static', 'resume2020.pdf')
 
@@ -85,4 +87,5 @@ def google_crawl():
     return render_template('googlee07c61c8e4157065.html')
 
 if __name__ == '__main__':
-    manager.run()
+    # manager.run()
+    freezer.freeze()
